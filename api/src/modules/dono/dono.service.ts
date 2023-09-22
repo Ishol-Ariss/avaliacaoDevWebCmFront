@@ -32,7 +32,11 @@ export class DonoService {
     }
 
     async getAll(){
-        const dono = await this.prisma.dono.findMany()
+        const dono = await this.prisma.dono.findMany({
+            include: {
+                pets:true
+            }
+        })
         return dono
     }
     
