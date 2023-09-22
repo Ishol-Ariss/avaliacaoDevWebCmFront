@@ -1,0 +1,29 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Dono{
+  id String @id @default(uuid())
+  nome String
+  cpf String @unique
+  email String @unique
+  pets Pet[]
+  @@map("dono")
+}
+
+model Pet{
+  id String @id @default(uuid())
+  nome String
+  raca String
+  data_nasc String
+  id_dono String
+  dono Dono @relation(fields: [id_dono], references: [id])
+}
